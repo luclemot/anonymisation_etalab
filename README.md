@@ -7,14 +7,9 @@ L'objectif de cet outil open source est de proposer un module d'anonymisation de
 La définition de l'anonymisation est à entendre au [sens de la CNIL](https://www.cnil.fr/fr/lanonymisation-de-donnees-personnelles).
 
 Un jeu de données est considéré comme anonyme s'il respecte les trois critères suivants :
-- Le critère de non-individualisation :
-
-Il est impossible d'identifier un individu parmi le jeu de données anonymisé
-- Le critère de non-corrélation :
-
-Etant donné un jeu de données externe, il n'est pas possible de retrouver le même individu dans les deux jeux
-- Le critère de non-infénrece :
-Il n'est pas possible de prédire (avec une forte certitude) un nouvel attribut d'un individu présent dans le jeu
+- Le critère de non-individualisation : Il est impossible d'identifier un individu parmi le jeu de données anonymisé
+- Le critère de non-corrélation : Etant donné un jeu de données externe, il n'est pas possible de retrouver le même individu dans les deux jeux
+- Le critère de non-infénrece : Il n'est pas possible de prédire (avec une forte certitude) un nouvel attribut d'un individu présent dans le jeu
 
 Cet outil n'a pas pour ambition d'être applicable à tout cas particulier, mais se présente comme utilisable avec n'importe quel jeu de données personnelles sous forme de tableau. Il suffit de choisir quelques paramètres, comme les variables d'intérêt du jeu, et leur nature (numérique, catégorielle, mais encore identifiante, quasi-identifiante) afin que le code produise une version anonymisée du jeu.
 
