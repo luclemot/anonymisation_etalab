@@ -1,0 +1,6 @@
+# Remove pycache files
+utils/__pycache__/
+
+# Local working python files
+explo*.py
+anonymisation_*.ipynb
