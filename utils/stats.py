@@ -42,7 +42,30 @@ def categorical_loss(original_df, anonym_df, cat_cols):
 
 
 def numerical_loss(original_df, anonym_df, num_cols):
-    # Données numériques : on utilisera les matrices de covariance, de corrélation,
-    # de corrélation après PCA, de communalité entre les composantes de la PCA.
-    # On va également regarder la MSE (mean square error), la MAE (mean absolute error), et la Mean Variation.
-    return None
+    for col in num_cols:
+        mean_evol = (original_df[col].mean() - anonym_df[col].mean()) / original_df[
+            col
+        ].mean()
+        print(
+            "For the column {}, the mean value changed by {}%".format(
+                col, mean_evol * 100
+            )
+        )
+        # Doesn't mean anything since we scaled the anonymized value.
+        std_evol = (original_df[col].std() - anonym_df[col].std()) / original_df[
+            col
+        ].std()
+        print(
+            "For the column {}, the std value changed by {}%".format(
+                col, std_evol * 100
+            )
+        )
+
+        corr = original_df[col].corr(anonym_df[col])
+        print(
+            "The correlation between the original and anonymized data on column {} is {}%".format(
+                col, corr * 100
+            )
+        )
+
+    # compute correlation post PCA ?

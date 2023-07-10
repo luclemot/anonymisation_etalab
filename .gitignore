@@ -4,3 +4,7 @@ utils/__pycache__/
 # Local working python files
 explo*.py
 anonymisation_*.ipynb
+
+# data folder
+
+data/

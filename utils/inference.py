@@ -1,4 +1,6 @@
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 
@@ -13,37 +15,42 @@ class Infer_Model:
         self.cat_cols = cat_cols
         self.num_cols = num_cols
         self.target = target
-        self.target_type = type(self.df[target])
+        self.target_type = self.df[target].dtype
 
     def prep_data(self):
         # On veut tokenizer les variables dans cat_cols, scaler les variables dans num_cols, et créer le train, test split en fonction
         for col in self.num_cols:
             scaler = StandardScaler()
             # Why not MinMaxScaler?
-            self.df[col] = scaler.scale(self.df[col])
+            self.df[col] = scaler.fit_transform(np.array(self.df[col]).reshape(-1, 1))
         for col in self.cat_cols:
-            # LabelEncoder ?
-            # voc = Vocabulary(col)
-            # voc.load_words(content=self.df[col])
-            # self.df[col] = [voc.tokenize(t) for t in self.df[col]]
-            # initialize
-            cv = CountVectorizer(token_pattern=r"(?u)\b\w+\b")
-            cv_matrix = cv.fit_transform(self.df[col])
-            # create document term matrix
-            df_dtm = pd.DataFrame(
-                cv_matrix.toarray(),
-                index=self.df.index,
-                columns=cv.get_feature_names_out(),
-            )
-            # on veut drop celles en commun
-            self.df = pd.merge(
-                self.df, df_dtm, left_index=True, right_index=True, suffixes=["", "_y"]
-            )
-            self.df = self.df[[c for c in self.df.columns if not c.endswith("_y")]]
-            try:
-                self.df.drop(columns=[col, "ou"], inplace=True)
-            except:
-                self.df.drop(columns=[col], inplace=True)
+            if col != self.target:
+                # LabelEncoder ?
+                # voc = Vocabulary(col)
+                # voc.load_words(content=self.df[col])
+                # self.df[col] = [voc.tokenize(t) for t in self.df[col]]
+                # initialize
+                cv = CountVectorizer(token_pattern=r"(?u)\b\w+\b")
+                cv_matrix = cv.fit_transform(self.df[col])
+                # create document term matrix
+                df_dtm = pd.DataFrame(
+                    cv_matrix.toarray(),
+                    index=self.df.index,
+                    columns=cv.get_feature_names_out(),
+                )
+                # on veut drop celles en commun
+                self.df = pd.merge(
+                    self.df,
+                    df_dtm,
+                    left_index=True,
+                    right_index=True,
+                    suffixes=["", "_y"],
+                )
+                self.df = self.df[[c for c in self.df.columns if not c.endswith("_y")]]
+                try:
+                    self.df.drop(columns=[col, "ou"], inplace=True)
+                except:
+                    self.df.drop(columns=[col], inplace=True)
 
     def split(self):
         cols = list(self.df.columns)
@@ -61,14 +68,15 @@ class Infer_Model:
         return clf
 
     def regressor(self):
-        # reg =
-        return None
+        # reg = LinearRegression()
+        reg = GradientBoostingRegressor()
+        return reg
 
     def train_model(self, x_train, x_test, y_train, y_test):
         # prep_data(self)
-        if self.target_type == float:
-            #  regressor(self)
-            pass
+        if self.target_type == float or self.target_type == int:
+            model = self.regressor()
+            model.fit(x_train, y_train)
         else:
             model = self.classifier()
             model.fit(x_train, y_train)
@@ -114,11 +122,11 @@ class Vocabulary:
 
 
 def compare_models(
-    model, original_model, validation_set_X, validation_set_y, print: bool
+    model, original_model, validation_set_X, validation_set_y, print_bool: bool
 ):
     model_score = model.score(validation_set_X, validation_set_y)
     original_score = original_model.score(validation_set_X, validation_set_y)
-    if print:
+    if print_bool:
         print("A model trained on the original data has the following accuracy : ")
         print(original_score)
         print("A model trained on the anonymized data has the following accuracy : ")
