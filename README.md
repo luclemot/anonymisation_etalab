@@ -29,7 +29,8 @@ Le module est adapté à un jeu de données avec une extension *.csv*.
 ## Structure du module
 
 Ce repo est constitué d'un dossier [utils](utils/) dans lequel se trouvent les fonctions et objets nécessaires pour l'anonymisation et le contrôle de qualité.
-- Le notebook principal est [anonymisation.ipynb](anonymisation.ipynb), dans lequel l'anonymisation opère, et où une partie de l'approche adverse est implémentée.
+- Le notebook principal est [anonymisation.ipynb](anonymisation.ipynb), dans lequel l'anonymisation s'opère.
+- Le notebook de l'approche adverse est [adversary.ipynb](adversary.ipynb), dans lequel l'approche adverse implémentée par nos soins est réalisée. Il étudie la qualité de l'anonymisation selon les trois criètres de la CNIL.
 - Le notebook secondaire est [anonymeter.ipynb](anonymeter.ipynb), dans lequel l'outil `Anonymeter` estime et quantifie la performance d'une attaque adverse, et donc évalue la qualité de l'anonymisation.
 
 ### Notebook d'anonymisation

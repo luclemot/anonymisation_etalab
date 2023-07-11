@@ -16,14 +16,11 @@ def numerical_perturbation(df, num_cols):
         min = df[col].min()
         max = df[col].max()
         if is_float_dtype(df[col].dtype):
-            print("float")
-            noise = np.random.random(size=len(df[col])) * (max - min)
+            noise = np.random.random(size=len(df[col])) * (max - min) * 0.1
             # transform = NumericPerturbation(dtype=dtypes.Float, min=-5, max=5)
         elif is_integer_dtype(df[col].dtype):
             print("int")
-            noise = np.random.randint(-5, 5, size=len(df[col]))
-            transform = NumericPerturbation(dtype=dtypes.Integer, min=-5, max=5)
-        # df[col] = transform(df[col])
+            noise = int(np.random.random(size=len(df[col])) * (max - min) * 0.1)
         df[col] = df[col] + noise
     return df
 

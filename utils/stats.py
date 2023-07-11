@@ -1,8 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pandas.api.types import is_string_dtype
+from pandas.api.types import is_numeric_dtype
 
 
-def info_loss(original_df, anonym_df, cat_cols):
+def categorical_loss(original_df, anonym_df, cat_cols):
     """Interprets the loss information in terms of categorical column values and total row count."""
     for col in cat_cols:
         loss = anonym_df[col].nunique() / original_df[col].nunique()
@@ -36,11 +38,6 @@ def plot_info_loss(original_df, anonym_df, cat_cols):
     plt.show()
 
 
-def categorical_loss(original_df, anonym_df, cat_cols):
-    # on va comparer les tables de contingence + les valeurs liées à l'entropie
-    return None
-
-
 def numerical_loss(original_df, anonym_df, num_cols):
     for col in num_cols:
         mean_evol = (original_df[col].mean() - anonym_df[col].mean()) / original_df[
@@ -69,3 +66,20 @@ def numerical_loss(original_df, anonym_df, num_cols):
         )
 
     # compute correlation post PCA ?
+
+
+def target_loss(original_df, anonym_df, target):
+    if is_numeric_dtype(original_df[target]):
+        original_df[target].plot.hist(
+            figsize=(7, 5),
+        )
+        anonym_df.plot.hist(figsize=(7, 5))
+        plt.show()
+    elif is_string_dtype(original_df[target]):
+        res_og = original_df.groupby(target, as_index=False)[target].count()
+        res_ano = anonym_df.groupby(target, as_index=False)[target].count()
+        res_og[target].plot.bar(
+            figsize=(7, 5),
+        )
+        res_ano.plot.bar(figsize=(7, 5))
+        plt.show()

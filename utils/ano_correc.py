@@ -4,6 +4,7 @@ from anonymizer.diversity import _l_diversity
 """This is a corrected version of the anonymizer module.
 Must be incorporated in the original repo and deleted from this folder."""
 
+
 def all_local_aggregation(tab, k, variables, method, unknown=""):
     """
         retourne une table k-anonymisée par aggrégation locale
