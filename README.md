@@ -17,10 +17,7 @@ Ce module comporte aussi une approche adverse, qui elle cherche à quantifier la
 
 ## Installation
 
-```bash
-
-On fait quoi ?
-```
+Ce module n'est actuellement pas déployé en ligne. Pour l'utiliser en interne, il suffit de créer un environnement virtuel à partir du fichier `environment.yml`.
 
 ## Structure de données
 
@@ -28,7 +25,7 @@ Le module est adapté à un jeu de données avec une extension *.csv*.
 
 ## Structure du module
 
-Ce repo est constitué d'un dossier [utils](utils/) dans lequel se trouvent les fonctions et objets nécessaires pour l'anonymisation et le contrôle de qualité.
+Ce repo est constitué d'un dossier [utils](utils/) dans lequel se trouvent les fonctions et objets nécessaires pour l'anonymisation et le contrôle de qualité, et du dossier [data](data/) dans lequel la donnée est stockée après anonymisation en préparation aux modules adverses.
 - Le notebook principal est [anonymisation.ipynb](anonymisation.ipynb), dans lequel l'anonymisation s'opère.
 - Le notebook de l'approche adverse est [adversary.ipynb](adversary.ipynb), dans lequel l'approche adverse implémentée par nos soins est réalisée. Il étudie la qualité de l'anonymisation selon les trois criètres de la CNIL.
 - Le notebook secondaire est [anonymeter.ipynb](anonymeter.ipynb), dans lequel l'outil `Anonymeter` estime et quantifie la performance d'une attaque adverse, et donc évalue la qualité de l'anonymisation.
@@ -39,6 +36,7 @@ Ce repo est constitué d'un dossier [utils](utils/) dans lequel se trouvent les 
 Le dossier utils comprend un ensemble de fichiers qui contiennent toutes les fonctions nécessaires au bon fonctionnement du module. On y retrouve notamment :
 - Le fichier [exploration.py](utils/exploration.py), qui contient les fonctions d'exploration et de nettoyage de dataset.
 - Le fichier [correlation.py](utils/correlation.py), qui contient les fonctions déterminant les relations de corrélation entre les variables.
+- Le fichier [perturbation.py](utils/perturbation.py), qui contient les fonctions de perturbation pour les variables numériques.
 - Le fichier [outliers.py](utils/outliers.py), qui contient les fonctions d'identification des outliers.
 - Le fichier [inference.py](utils/inference.py), qui contient la structure d'objet nécessaire pour étudier le critère de non-inférence.
 - Le fichier [stats.py](utils/stats.py), qui contient les fonctions quantifiant l'évolution de la qualité statistique du jeu de données avant et après anonymisation.
@@ -47,6 +45,5 @@ Par ailleurs,
 - Le fichier [tools.py](utils/tools.py) contient des fonctions basiques.
 - Le fichier [ano_correc.py](utils/ano_correc.py) devra être supprimé ASAP. En effet, il s'agit la d'une correction en local du repository d'anonymisation [anonymity](https://github.com/SGMAP-AGD/anonymisation). La pull request n'a pas encore été faite pour corriger les fonctions obsolètes.
 
-```bash
-...
-```
+## Résultats
+
