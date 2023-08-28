@@ -66,3 +66,7 @@ Les méthodes d'anonymisation utilisées dans ce module sont assez simples. Il p
 ## Le tester
 
 Le fichier des équidés, disponible [ici](https://www.data.gouv.fr/fr/datasets/fichier-des-equides/) permet de tester le module.
+
+## Licence
+
+Retrouvez la licence [ici](LICENSE).
